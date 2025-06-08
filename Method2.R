@@ -3,8 +3,8 @@
 # @X X is the model matrix without the all-one column
 library(stringr)
 
-GenerateTWOint <- function(M = list("main"=NULL,"intr"=NULL),string, h, M.store = list()) {
-  if (is.null(string) || length(M$main)==h)
+GenerateTWOint <- function(M = list("main"=NULL,"intr"=NULL),string, h, M.store = list(),order=2) {
+  if (is.null(string) || length(M$main)==h || order == 0)
     return(M.store)
   
   store <- M.store
@@ -27,7 +27,7 @@ GenerateTWOint <- function(M = list("main"=NULL,"intr"=NULL),string, h, M.store 
       return(store)
     
     newstring <- string[(i+1):sl]
-    store <- GenerateTWOint(newM,newstring,h,store)
+    store <- GenerateTWOint(newM,newstring,h,store,order-1)
     l <- length(store)
   }
 }
@@ -153,7 +153,7 @@ GlobalSearching <- function(X,y,h) {
     f <- lm(ALLSET[[mI]], data =DX)
     p$Cp <- c(p$Cp, MallowCp( sum(f$residuals^2),n,p,hat_v ))
     p$BIC <- c(p$BIC, BIC(sum(f$residuals^2),n,p ))
-    p$r_sq <- c(p$r_sq,r_sq(sum(f$residuals^2)),tot,f$df.residual,n-1)
+    p$r_sq <- c(p$r_sq,r_sq(sum(f$residuals^2),tot,f$df.residual,n-1))
   }
   
   # return results
