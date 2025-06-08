@@ -132,11 +132,11 @@ GlobalSearching <- function(X,y,h) {
   
   # smaller or equal to `h`-size models
   raw.store <- GenerateTWOint(string = namc, h=h)
-  hardPruning <- hardPruning(raw.store,h=h)
-  ALLSET <- get.All.Formula(raw.store)
+  hard.store <- hardPruning(raw.store,h=h)
+  ALLSET <- get.All.Formula(hard.store)
   numMdl <- length(ALLSET)
   for(i in 1:numMdl) {
-    p$no.main <- c(p$no.main, length(hardPruning[[i]]$main))
+    p$no.main <- c(p$no.main, length(hard.store[[i]]$main))
   }
   p$formula <- list()
   
