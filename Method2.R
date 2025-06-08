@@ -157,8 +157,8 @@ GlobalSearching <- function(X,y,h) {
   }
   
   # return results
-  nCp <- which.max(p$Cp)
-  nBIC <- which.max(p$BIC)
+  nCp <- which.min(p$Cp)
+  nBIC <- which.min(p$BIC)
   nr_sq <- which.max(p$r_sq)
   p$maxCp <- p$formula[[nCp]]
   p$maxBIC <- p$formula[[nBIC]]
